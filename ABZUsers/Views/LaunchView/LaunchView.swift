@@ -14,9 +14,11 @@ struct LaunchView: View {
                 VStack {
                     Image("logo")
                         .resizable()
+                        .frame(width: 160.0, height: 106.0, alignment: .center)
                         .scaledToFit()
                         .clipped()
                 }
+                .frame(width: UIScreen.main.bounds.width, height: UIScreen.main.bounds.height, alignment: .center)
                 .background(.yellow)
             }
             .frame(width: UIScreen.main.bounds.width, height: UIScreen.main.bounds.height)
@@ -26,5 +28,13 @@ struct LaunchView: View {
 
 #Preview {
     LaunchView()
+}
+
+func getRelativeWidth (_ size: CGFloat) -> CGFloat {
+    return size * (CGFloat(UIScreen.main.bounds.width) / 360.0)
+}
+
+func getRelativeHeight (_ size: CGFloat) -> CGFloat {
+    return (size * (CGFloat(UIScreen.main.bounds.width) / 760.0)) * 0.97
 }
 
