@@ -8,6 +8,7 @@
 import SwiftUI
 
 struct LaunchView: View {
+    @StateObject var launchViewModel = LaunchViewModel()
     var body: some View {
         NavigationView {
             VStack {
@@ -20,8 +21,19 @@ struct LaunchView: View {
                 }
                 .frame(width: UIScreen.main.bounds.width, height: UIScreen.main.bounds.height, alignment: .center)
                 .background(.yellow)
+                Group {
+                    NavigationLink(destination: NoConnectionView(), 
+                                   tag: "NoConnectionView",
+                                   selection: $launchViewModel.nextScreen, 
+                                   label: {
+                        EmptyView()
+                    })
+                }
             }
             .frame(width: UIScreen.main.bounds.width, height: UIScreen.main.bounds.height)
+        }
+        .onAppear{
+            launchViewModel.nextScreen = "NoConnectionView"
         }
     }
 }
