@@ -11,7 +11,7 @@ struct NoConnectionView: View {
     var body: some View {
         VStack {
             VStack {
-                Image("group")
+                Image("wifi")
                     .resizable()
                     .frame(width: 200.0, height: 200.0, alignment: .center)
                     .scaledToFit()
@@ -43,6 +43,7 @@ struct NoConnectionView: View {
             
         }
         .frame(width: UIScreen.main.bounds.width, height: UIScreen.main.bounds.height)
+//        .hideNavigationBar()
     }
 }
 

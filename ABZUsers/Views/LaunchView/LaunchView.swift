@@ -32,6 +32,7 @@ struct LaunchView: View {
             }
             .frame(width: UIScreen.main.bounds.width, height: UIScreen.main.bounds.height)
         }
+        .hideNavigationBar()
         .onAppear{
             launchViewModel.nextScreen = "NoConnectionView"
         }
