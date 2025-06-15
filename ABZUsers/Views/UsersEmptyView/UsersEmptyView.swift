@@ -12,7 +12,7 @@ struct UsersEmptyView: View {
     
     var body: some View {
         VStack {
-            VStack {
+//            VStack {
                 Button(action: {}, label: {
                     HStack(spacing: 0) {
                         Text("Working with GET request")
@@ -90,7 +90,7 @@ struct UsersEmptyView: View {
                 .frame(width: UIScreen.main.bounds.width, height: 0, alignment: .leading)
                 .padding(.top)
             }
-        }
+//        }
     }
 }
 
