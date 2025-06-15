@@ -50,37 +50,57 @@ struct UsersEmptyView: View {
                     .minimumScaleFactor(0.5)
                     .multilineTextAlignment(.leading)
                     .frame(width:UIScreen.main.bounds.width, height: 109)
+                
                 Spacer()
                 
                 HStack {
-                    Image("users")
-                        .resizable()
-                        .frame(width: 36, height: 17)
-                        .scaledToFit()
-                        .clipped()
-                        .padding(.bottom, 4)
-                    Text("Users")
-                        .fontWeight(.semibold)
-                        .foregroundColor(.cyan) // deprecated
-                        .padding(.bottom, 4)
-                    Image("signUp")
-                        .resizable()
-                        .frame(width: 22, height: 22)
-                        .scaledToFit()
-                        .clipped()
-                        .padding(.bottom, 4)
-                        .padding(.leading, 90)
-                    Text("Sign up")
-                        .fontWeight(.semibold)
-                        .foregroundColor(.black) // deprecated
-                        .padding(.bottom, 4)
-                        .padding(.leading, 9)
+                    Button(action: {}, label: {
+                        HStack(spacing: 7) {
+                            Image("users")
+                                .resizable()
+                                .frame(width: 36, height: 17)
+                                .scaledToFit()
+                                .clipped()
+                                .padding(.leading, 25)
+                            Text("Users")
+                                .fontWeight(.semibold)
+                                .foregroundColor(.cyan) // deprecated
+                        }
+                    }).buttonStyle(ColoredButtonStyle())
+                    
+                    Spacer()
+                    
+                    Button(action: {
+                        
+                    }, label: {
+                        HStack(spacing: 7) {
+                            Image("signUp")
+                                .resizable()
+                                .frame(width: 22, height: 20)
+                                .scaledToFit()
+                                .clipped()
+                            Text("Sign up")
+                                .fontWeight(.semibold)
+                                .foregroundColor(.black) // deprecated
+                                .padding(.trailing, 25)
+                        }
+                    }).buttonStyle(ColoredButtonStyle())
                 }
-
+                .background(Color.gray.opacity(0.3))
+                .frame(width: UIScreen.main.bounds.width, height: 0, alignment: .leading)
+                .padding(.top)
             }
         }
-        
-        
+    }
+}
+
+struct ColoredButtonStyle: ButtonStyle {
+    func makeBody(configuration: Configuration) -> some View {
+        configuration.label
+            .padding()
+            .background(configuration.isPressed ? Color.gray.opacity(0.7) : Color.gray.opacity(0.0))
+            .cornerRadius(10)
+            .frame(maxWidth: .infinity)
     }
 }
 
