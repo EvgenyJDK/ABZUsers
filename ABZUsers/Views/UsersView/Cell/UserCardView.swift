@@ -8,6 +8,12 @@
 import SwiftUI
 
 struct UserCardView: View {
+    
+    let name: String
+    let position: String
+    let email: String
+    let phone: String
+    
     var body: some View {
         HStack(alignment: .top, spacing: 16) {
             Image("photo")
@@ -17,15 +23,15 @@ struct UserCardView: View {
                 .clipShape(/*@START_MENU_TOKEN@*/Circle()/*@END_MENU_TOKEN@*/)
 
                 VStack(alignment: .leading, spacing: 0) {
-                    Text("Malcolm Bailey")
+                    Text(name)
                         .fontWeight(.regular)
                         .font(/*@START_MENU_TOKEN@*/.title/*@END_MENU_TOKEN@*/)
                     
-                    Text("Frontend developer")
+                    Text(position)
                     
-                    Text("jany_murazik51@hotmail.com")
+                    Text(email)
                     
-                    Text("+38 (098) 278 76 24")
+                    Text(phone)
                 }
                 .padding(.trailing, 16)
         } 
@@ -34,7 +40,7 @@ struct UserCardView: View {
 //        .background(.yellow)
     }
 }
-
-#Preview {
-    UserCardView()
-}
+//
+//#Preview {
+//    UserCardView()
+//}

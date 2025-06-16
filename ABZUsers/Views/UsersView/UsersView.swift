@@ -28,19 +28,16 @@ struct UsersView: View {
             }
             
             ScrollView {
-//                cards
-                UserCardView()
-                UserCardView()
+                cards
             }
         }
     }
-    
-    var cards: some View {
-        UserCardView()
 
+    var cards: some View {
+        return ForEach(viewModel.users?.usersList ?? []) {
+            UserCardView(name: $0.name, position: $0.position, email: $0.email, phone: $0.phone)
+        }
     }
-    
-    
 }
 
 

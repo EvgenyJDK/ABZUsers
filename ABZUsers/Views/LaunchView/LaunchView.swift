@@ -22,9 +22,9 @@ struct LaunchView: View {
                 .frame(width: UIScreen.main.bounds.width, height: UIScreen.main.bounds.height, alignment: .center)
                 .background(.yellow)
                 Group {
-                    NavigationLink(destination: NoConnectionView(), 
-                                   tag: "NoConnectionView",
-                                   selection: $launchViewModel.nextScreen, 
+                    NavigationLink(destination: UsersView(),
+                                   tag: "UsersView",
+                                   selection: $launchViewModel.nextScreen,
                                    label: {
                         EmptyView()
                     })
@@ -34,7 +34,7 @@ struct LaunchView: View {
         }
         .hideNavigationBar()
         .onAppear{
-            launchViewModel.nextScreen = "NoConnectionView"
+            launchViewModel.nextScreen = "UsersView"
         }
     }
 }

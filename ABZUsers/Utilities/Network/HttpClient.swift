@@ -16,18 +16,34 @@ class HttpClient {
 
     static let shared = HttpClient()
     
-    func fetch<T: Codable>(url: URL) async throws -> T {
+    func fetch(url: URL) async throws -> Users {
+        
         let (data, response) = try await URLSession.shared.data(from: url)
-
+        
         guard (response as? HTTPURLResponse)?.statusCode == 200 else {
             print(response as Any)
             throw HttpError.badResponse
         }
         
-        guard let data = try? JSONDecoder().decode(T.self, from: data) else {
+        guard let model = try? JSONDecoder().decode(Users.self, from: data) else {
             throw HttpError.errorDecodingData
         }
         
-        return data
+        return model
     }
+    
+    //    func fetch<T: Codable>(url: URL) async throws -> T {
+    //        let (data, response) = try await URLSession.shared.data(from: url)
+    //
+    //        guard (response as? HTTPURLResponse)?.statusCode == 200 else {
+    //            print(response as Any)
+    //            throw HttpError.badResponse
+    //        }
+    //
+    //        guard let data = try? JSONDecoder().decode(T.self, from: data) else {
+    //            throw HttpError.errorDecodingData
+    //        }
+    //
+    //        return data
+    //    }
 }

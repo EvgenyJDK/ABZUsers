@@ -9,9 +9,12 @@ import SwiftUI
 
 @main
 struct ABZUsersApp: App {
+    @StateObject private var usersVM = UsersViewModel()
+    
     var body: some Scene {
         WindowGroup {
             LaunchView()
+                .environmentObject(usersVM)
         }
     }
 }
