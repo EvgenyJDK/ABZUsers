@@ -9,6 +9,8 @@ import SwiftUI
 
 struct UsersView: View {
     
+    @EnvironmentObject private var viewModel: UsersViewModel
+    
     var body: some View {
         VStack {
             VStack {
