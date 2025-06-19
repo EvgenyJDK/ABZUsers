@@ -26,11 +26,8 @@ struct UserCardView: View {
                     Text(name)
                         .fontWeight(.regular)
                         .font(/*@START_MENU_TOKEN@*/.title/*@END_MENU_TOKEN@*/)
-                    
                     Text(position)
-                    
                     Text(email)
-                    
                     Text(phone)
                 }
                 .padding(.trailing, 16)

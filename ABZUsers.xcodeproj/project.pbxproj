@@ -13,6 +13,9 @@
 		181DF4992DFF1CCD00D91560 /* UserCardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 181DF4982DFF1CCD00D91560 /* UserCardView.swift */; };
 		181DF49B2DFF4EE900D91560 /* UsersViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 181DF49A2DFF4EE900D91560 /* UsersViewModel.swift */; };
 		181DF49F2E0012FA00D91560 /* HttpClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 181DF49E2E0012FA00D91560 /* HttpClient.swift */; };
+		18E19D772E041813004D6824 /* SignUpView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18E19D762E041813004D6824 /* SignUpView.swift */; };
+		18E19D7A2E04211F004D6824 /* ToolbarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18E19D792E04211F004D6824 /* ToolbarView.swift */; };
+		18E19D7C2E042174004D6824 /* HeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18E19D7B2E042174004D6824 /* HeaderView.swift */; };
 		18ECD8D42DF9E829003F7A5D /* ABZUsersApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18ECD8D32DF9E829003F7A5D /* ABZUsersApp.swift */; };
 		18ECD8D82DF9E82C003F7A5D /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 18ECD8D72DF9E82C003F7A5D /* Assets.xcassets */; };
 		18ECD8DB2DF9E82C003F7A5D /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 18ECD8DA2DF9E82C003F7A5D /* Preview Assets.xcassets */; };
@@ -28,6 +31,9 @@
 		181DF4982DFF1CCD00D91560 /* UserCardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserCardView.swift; sourceTree = "<group>"; };
 		181DF49A2DFF4EE900D91560 /* UsersViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UsersViewModel.swift; sourceTree = "<group>"; };
 		181DF49E2E0012FA00D91560 /* HttpClient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HttpClient.swift; sourceTree = "<group>"; };
+		18E19D762E041813004D6824 /* SignUpView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpView.swift; sourceTree = "<group>"; };
+		18E19D792E04211F004D6824 /* ToolbarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ToolbarView.swift; sourceTree = "<group>"; };
+		18E19D7B2E042174004D6824 /* HeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HeaderView.swift; sourceTree = "<group>"; };
 		18ECD8D02DF9E829003F7A5D /* ABZUsers.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ABZUsers.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		18ECD8D32DF9E829003F7A5D /* ABZUsersApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ABZUsersApp.swift; sourceTree = "<group>"; };
 		18ECD8D72DF9E82C003F7A5D /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -99,6 +105,23 @@
 			path = Network;
 			sourceTree = "<group>";
 		};
+		18E19D732E0417BE004D6824 /* SignUpView */ = {
+			isa = PBXGroup;
+			children = (
+				18E19D762E041813004D6824 /* SignUpView.swift */,
+			);
+			path = SignUpView;
+			sourceTree = "<group>";
+		};
+		18E19D782E0420E8004D6824 /* Shared Views */ = {
+			isa = PBXGroup;
+			children = (
+				18E19D792E04211F004D6824 /* ToolbarView.swift */,
+				18E19D7B2E042174004D6824 /* HeaderView.swift */,
+			);
+			path = "Shared Views";
+			sourceTree = "<group>";
+		};
 		18ECD8C72DF9E829003F7A5D = {
 			isa = PBXGroup;
 			children = (
@@ -140,6 +163,8 @@
 			children = (
 				18ECD8E22DF9F193003F7A5D /* LaunchView */,
 				18ECD8E62DFA2313003F7A5D /* NoConnectionView */,
+				18E19D782E0420E8004D6824 /* Shared Views */,
+				18E19D732E0417BE004D6824 /* SignUpView */,
 				181DF4912DFD840500D91560 /* UsersEmptyView */,
 				181DF4942DFF094C00D91560 /* UsersView */,
 			);
@@ -235,14 +260,17 @@
 			files = (
 				181DF49F2E0012FA00D91560 /* HttpClient.swift in Sources */,
 				18ECD8E82DFA235A003F7A5D /* NoConnectionView.swift in Sources */,
+				18E19D7A2E04211F004D6824 /* ToolbarView.swift in Sources */,
 				181DF4992DFF1CCD00D91560 /* UserCardView.swift in Sources */,
 				18ECD8E42DF9F1A6003F7A5D /* LaunchView.swift in Sources */,
 				18ECD8D42DF9E829003F7A5D /* ABZUsersApp.swift in Sources */,
+				18E19D772E041813004D6824 /* SignUpView.swift in Sources */,
 				181DF4932DFD844900D91560 /* UsersEmptyView.swift in Sources */,
 				18ECD8EA2DFA3279003F7A5D /* LaunchViewModel.swift in Sources */,
 				181DF4962DFF0A1300D91560 /* UsersView.swift in Sources */,
 				181DF49B2DFF4EE900D91560 /* UsersViewModel.swift in Sources */,
 				181DF4902DFD7D3400D91560 /* ViewExtension.swift in Sources */,
+				18E19D7C2E042174004D6824 /* HeaderView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

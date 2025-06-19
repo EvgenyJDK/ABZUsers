@@ -14,77 +14,57 @@ struct UsersView: View {
     var body: some View {
         VStack {
             VStack {
-                header
+                HeaderView(title: "Working with GET request")
             }
             
             ScrollView {
                 cards
             }
             
-            toolbar
+            ToolbarView {
+                print("Users")
+            } signUpAction: {
+                print("SignUp")
+            }
             
         }.hideNavigationBar()
     }
-    
-    var header: some View {
-        HStack(spacing: 0) {
-            Text("Working with GET request")
-                .fontWeight(.regular)
-                .padding(.vertical, 14)
-                .foregroundColor(.gray) // deprecated
-                .minimumScaleFactor(0.5)
-            //                            .multilineTextAlignment(.center)
-                .frame(width: UIScreen.main.bounds.width, height: 56, alignment: .center)
-                .background(.yellow)
-        }
-        .padding(.top)
-    }
 
     var cards: some View {
+//        List {
+//            ForEach(viewModel.users?.usersList ?? []) {
+//                UserCardView(name: $0.name, position: $0.position, email: $0.email, phone: $0.phone)
+////                    .onAppear{
+//////                        if $0 == viewModel.users?.usersList.last{
+////                            loadMoreData()
+//////                        }
+////                    }
+//            }
+//        }
         return ForEach(viewModel.users?.usersList ?? []) {
             UserCardView(name: $0.name, position: $0.position, email: $0.email, phone: $0.phone)
+                .onAppear {
+//                    if $0 == viewModel.users?.usersList.last{
+                        loadMoreData()
+//                    }
+                }
         }
     }
     
-    var toolbar: some View {
-        HStack {
-            Button(action: {}, label: {
-                HStack(spacing: 7) {
-                    Image("users")
-                        .resizable()
-                        .frame(width: 36, height: 17)
-                        .scaledToFit()
-                        .clipped()
-                        .padding(.leading, 25)
-                    Text("Users")
-                        .fontWeight(.semibold)
-                        .foregroundColor(.cyan) // deprecated
-                }
-            }).buttonStyle(ColoredButtonStyle())
-            
-            Spacer()
-            
-            Button(action: {
-                
-            }, label: {
-                HStack(spacing: 7) {
-                    Image("signUp")
-                        .resizable()
-                        .frame(width: 22, height: 20)
-                        .scaledToFit()
-                        .clipped()
-                    Text("Sign up")
-                        .fontWeight(.semibold)
-                        .foregroundColor(.black) // deprecated
-                        .padding(.trailing, 25)
-                }
-            }).buttonStyle(ColoredButtonStyle())
-        }
-        .background(Color.gray.opacity(0.3))
-        .frame(width: UIScreen.main.bounds.width, height: 0, alignment: .leading)
-        .padding(.top)
+    private func loadMoreData() {
+        print("===loadMoreData====")
+//        guard !isLoading else { return }
+//        isLoading = true
+//        
+//        // Simulate a network delay
+//        DispatchQueue.main.asyncAfter(deadline: .now() + 1.5) {
+//            let moreItems = items.count+1...items.count+20
+//            items.append(contentsOf: moreItems)
+//            isLoading = false
+//        }
     }
 }
+
 
 
 #Preview {
