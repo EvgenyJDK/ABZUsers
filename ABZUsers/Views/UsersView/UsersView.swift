@@ -11,6 +11,9 @@ struct UsersView: View {
     
     @EnvironmentObject private var viewModel: UsersViewModel
     
+    @State private var showFullScreen = false
+    @State private var showUsers = false
+    
     var body: some View {
         VStack {
             VStack {
@@ -21,11 +24,17 @@ struct UsersView: View {
                 cards
             }
             
-            ToolbarView {
-                print("Users")
-            } signUpAction: {
-                print("SignUp")
-            }
+//            ToolbarView()
+            
+//            ToolbarView {
+//                print("Users")
+//                showFullScreen = true
+//            } signUpAction: {
+//                print("SignUp")
+//            }.fullScreenCover(isPresented: $showFullScreen) {
+//                SignUpView()
+//            }
+            
             
         }.hideNavigationBar()
     }

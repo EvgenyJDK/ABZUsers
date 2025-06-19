@@ -66,7 +66,7 @@ struct UsersEmptyView: View {
                                 .fontWeight(.semibold)
                                 .foregroundColor(.cyan) // deprecated
                         }
-                    }).buttonStyle(ColoredButtonStyle())
+                    }).buttonStyle(DynamicButtonStyle(isActive: true))
                     
                     Spacer()
                     
@@ -84,7 +84,7 @@ struct UsersEmptyView: View {
                                 .foregroundColor(.black) // deprecated
                                 .padding(.trailing, 25)
                         }
-                    }).buttonStyle(ColoredButtonStyle())
+                    }).buttonStyle(DynamicButtonStyle(isActive: true))
                 }
                 .background(Color.gray.opacity(0.3))
                 .frame(width: UIScreen.main.bounds.width, height: 0, alignment: .leading)
@@ -94,15 +94,29 @@ struct UsersEmptyView: View {
     }
 }
 
-struct ColoredButtonStyle: ButtonStyle {
+struct DynamicButtonStyle: ButtonStyle {
+    var isActive: Bool
+    
     func makeBody(configuration: Configuration) -> some View {
         configuration.label
             .padding()
-            .background(configuration.isPressed ? Color.gray.opacity(0.7) : Color.gray.opacity(0.0))
+//            .background(configuration.isPressed ? Color.gray.opacity(0.7) : Color.gray.opacity(0.0))
             .cornerRadius(10)
             .frame(maxWidth: .infinity)
+            .tint(isActive ? .cyan : .black)
     }
+    
+//    func makeBody(configuration: Configuration) -> some View {
+//            configuration.label
+//                .padding()
+//                .background(isActive ? Color.blue : Color.gray)
+//                .foregroundColor(.white)
+//                .opacity(configuration.isPressed ? 0.6 : 1.0)
+//                .cornerRadius(8)
+//        }
 }
+
+
 
 #Preview {
     UsersEmptyView()

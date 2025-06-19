@@ -13,7 +13,8 @@ struct ABZUsersApp: App {
     
     var body: some Scene {
         WindowGroup {
-            LaunchView()
+//            LaunchView()
+            NavigationShellView()
                 .environmentObject(usersVM)
         }
     }
