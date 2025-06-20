@@ -10,7 +10,7 @@ import SwiftUI
 
 class UsersViewModel: ObservableObject {
     @Published var nextScreen: String? = nil
-    @Published var loading = true
+    @Published var isLoading = true
     
     var users: Users?
     
@@ -32,7 +32,7 @@ class UsersViewModel: ObservableObject {
             if let users {
                 dump(users)
                 
-                loading = false
+                isLoading = false
                 
             }
         }

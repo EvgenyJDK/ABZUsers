@@ -9,10 +9,11 @@ import SwiftUI
 
 struct UsersView: View {
     
-    @EnvironmentObject private var viewModel: UsersViewModel
+    @StateObject private var viewModel: UsersViewModel
     
-    @State private var showFullScreen = false
-    @State private var showUsers = false
+    init() {
+        _viewModel = StateObject(wrappedValue: UsersViewModel())
+    }
     
     var body: some View {
         VStack {
@@ -20,9 +21,16 @@ struct UsersView: View {
                 HeaderView(title: "Working with GET request")
             }
             
-            ScrollView {
-                cards
+            Group {
+                if viewModel.isLoading {
+                    ProgressView()
+                } else {
+                    ScrollView {
+                        cards
+                    }
+                }
             }
+            
             
 //            ToolbarView()
             
