@@ -17,32 +17,22 @@ struct UsersView: View {
     
     var body: some View {
         VStack {
-            VStack {
-                HeaderView(title: "Working with GET request")
-            }
+//            VStack {
+//                HeaderView(title: "Working with GET request")
+//            }
             
             Group {
                 if viewModel.isLoading {
                     ProgressView()
                 } else {
+                    VStack {
+                        HeaderView(title: "Working with GET request")
+                    }
                     ScrollView {
                         cards
                     }
                 }
             }
-            
-            
-//            ToolbarView()
-            
-//            ToolbarView {
-//                print("Users")
-//                showFullScreen = true
-//            } signUpAction: {
-//                print("SignUp")
-//            }.fullScreenCover(isPresented: $showFullScreen) {
-//                SignUpView()
-//            }
-            
             
         }.hideNavigationBar()
     }
