@@ -12,6 +12,7 @@ class SignupViewModel: ObservableObject {
     @Published var email = ""
     @Published var phone = ""
     @Published var position = Position.front
+    @Published var photoUrl = ""
 //    @Published var name = ""
 //    @Published var email = ""
 //    @Published var name = ""
@@ -22,6 +23,7 @@ class SignupViewModel: ObservableObject {
     @Published var emailError: String = ""
     @Published var phoneError: String = ""
     @Published var positionError: String = ""
+    @Published var photoUrlError: String = ""
 }
 
 enum Position: String {
