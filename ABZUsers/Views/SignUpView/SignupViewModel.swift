@@ -13,10 +13,7 @@ class SignupViewModel: ObservableObject {
     @Published var phone = ""
     @Published var position = Position.front
     @Published var photoUrl = ""
-//    @Published var name = ""
-//    @Published var email = ""
-//    @Published var name = ""
-//    @Published var email = ""
+    @Published var isFormValid: Bool = false
     
     // Validation states for highlighting
     @Published var nameError: String = ""
@@ -24,11 +21,34 @@ class SignupViewModel: ObservableObject {
     @Published var phoneError: String = ""
     @Published var positionError: String = ""
     @Published var photoUrlError: String = ""
+    
+    
+    // MARK: - Public Methods
+    
+    func validateAllFields() {
+
+    }
+    
+    func submitForm() {
+        validateAllFields()
+        guard isFormValid else { return }
+        
+        // send the data to a service
+        print("Name: \(name)")
+        print("Email: \(email)")
+        print("Phone: \(phone)")
+        print("Selected Position: \(position.self.rawValue)")
+        
+        // Clear form after submission
+//        clearForm()
+    }
 }
 
-enum Position: String {
+enum Position: String, CaseIterable, Identifiable {
     case front = "Frontend Developer"
     case back = "Backend Developer"
     case designer = "Designer"
     case qa = "QA"
+    
+    var id: String { self.rawValue }  // Conform to Identifiable
 }
