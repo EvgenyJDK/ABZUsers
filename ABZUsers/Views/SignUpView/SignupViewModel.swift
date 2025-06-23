@@ -25,10 +25,6 @@ class SignupViewModel: ObservableObject {
     
     // MARK: - Public Methods
     
-    func validateAllFields() {
-
-    }
-    
     func submitForm() {
         validateAllFields()
         guard isFormValid else { return }
@@ -40,8 +36,72 @@ class SignupViewModel: ObservableObject {
         print("Selected Position: \(position.self.rawValue)")
         
         // Clear form after submission
-//        clearForm()
+        //        clearForm()
     }
+    
+    func validateAllFields() {
+        _ = validateName(name)
+        _ = validateEmail(email)
+        _ = validatePhone(phone)
+//        _ = validatePhone(photoUrl)
+        //        _ = validateOption(selectedOption)
+    }
+    
+    
+    // MARK: - Validation Methods
+
+    private func validateName(_ firstName: String) -> Bool {
+//        user name, should be 2-60 characters
+        if name.isEmpty {
+            nameError = "Required field"
+            return false
+        } else if name.count < 2 {
+            nameError = "First name must be at least 2 characters"
+            return false
+        } else if name.count > 60 {
+            nameError = "First name must be not more than 60 characters"
+            return false
+        } else {
+            nameError = ""
+            return true
+        }
+    }
+    
+    private func validateEmail(_ email: String) -> Bool {
+        if email.isEmpty {
+            emailError = "Required field"
+            return false
+        } else if !isValidEmail(email) {
+            emailError = "Invalid email format"
+            return false
+        } else {
+            emailError = ""
+            return true
+        }
+    }
+    
+    private func isValidEmail(_ email: String) -> Bool {
+//        user email, must be a valid email according to RFC2822
+        let emailRegex = "[A-Z0-9a-z._%+-]+@[A-Za-z0-9.-]+\\.[A-Za-z]{2,64}"
+        let emailPredicate = NSPredicate(format: "SELF MATCHES %@", emailRegex)
+        return emailPredicate.evaluate(with: email)
+    }
+    
+    private func validatePhone(_ phone: String) -> Bool {
+//        user phone number, should start with code of Ukraine +380
+        if phone.isEmpty {
+            phoneError = "Required field"
+            return false
+        } else if phone.count < 10 {
+            phoneError = "Phone number must be at least 10 digits"
+            return false
+        } else {
+            phoneError = ""
+            return true
+        }
+    }
+    
+//    user photo should be jpg/jpeg image, with resolution at least 70x70px and size must not exceed 5MB.
 }
 
 enum Position: String, CaseIterable, Identifiable {
