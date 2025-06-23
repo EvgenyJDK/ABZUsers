@@ -10,6 +10,14 @@ import SwiftUI
 struct SignUpView: View {
     @StateObject var signupViewModel = SignupViewModel()
     
+    @State private var showPhotoPicker = false
+    @State private var showActionSheet = false
+//    @State private var selectedImage: UIImage? = nil
+//    @State private var imageData: Data? = nil
+//    @State private var showAlert = false
+//    @State private var alertMessage = ""
+    @State private var pickerSourceType: UIImagePickerController.SourceType = .photoLibrary
+    
     init() {
         print("===SignUpView====")
     }
@@ -144,17 +152,27 @@ struct SignUpView: View {
                     
                     TextField("Upload your photo", text: $signupViewModel.photoUrl)
                         .padding(.horizontal)
-                        .padding()
                         .frame(height: 56)
                     
-                    Button(action: {
-                        print("==implement uploading photo==")
-                    }, label: {
-                        Text("Upload")
-                            .fontWeight(.semibold)
-                            .foregroundColor(.cyan) // deprecated
-                            .padding(.trailing, 16)
-                    })
+                    Button("Upload") {
+                        showActionSheet = true
+                    }
+                    .padding(.trailing, 16)
+                    .fontWeight(.semibold)
+                    .foregroundColor(.cyan) // deprecated
+                    .actionSheet(isPresented: $showActionSheet) {
+                        ActionSheet(title: Text("Choose Photo"), buttons: [
+                            .default(Text("Camera")) {
+                                pickerSourceType = .camera
+                                showPhotoPicker = true
+                            },
+                            .default(Text("Gallery")) {
+                                pickerSourceType = .photoLibrary
+                                showPhotoPicker = true
+                            },
+                            .cancel()
+                        ])
+                    }
                 }
                 
                 .overlay(

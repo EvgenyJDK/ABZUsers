@@ -18,6 +18,7 @@
 		18E19D7F2E043120004D6824 /* NavigationShellView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18E19D7E2E043120004D6824 /* NavigationShellView.swift */; };
 		18E19D812E05D661004D6824 /* ToolbarButtonView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18E19D802E05D661004D6824 /* ToolbarButtonView.swift */; };
 		18E19D832E05DA00004D6824 /* SignupViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18E19D822E05DA00004D6824 /* SignupViewModel.swift */; };
+		18E19DE62E09DC87004D6824 /* PhotoPicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18E19DE52E09DC87004D6824 /* PhotoPicker.swift */; };
 		18ECD8D42DF9E829003F7A5D /* ABZUsersApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18ECD8D32DF9E829003F7A5D /* ABZUsersApp.swift */; };
 		18ECD8D82DF9E82C003F7A5D /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 18ECD8D72DF9E82C003F7A5D /* Assets.xcassets */; };
 		18ECD8DB2DF9E82C003F7A5D /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 18ECD8DA2DF9E82C003F7A5D /* Preview Assets.xcassets */; };
@@ -38,6 +39,7 @@
 		18E19D7E2E043120004D6824 /* NavigationShellView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NavigationShellView.swift; sourceTree = "<group>"; };
 		18E19D802E05D661004D6824 /* ToolbarButtonView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ToolbarButtonView.swift; sourceTree = "<group>"; };
 		18E19D822E05DA00004D6824 /* SignupViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignupViewModel.swift; sourceTree = "<group>"; };
+		18E19DE52E09DC87004D6824 /* PhotoPicker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotoPicker.swift; sourceTree = "<group>"; };
 		18ECD8D02DF9E829003F7A5D /* ABZUsers.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ABZUsers.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		18ECD8D32DF9E829003F7A5D /* ABZUsersApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ABZUsersApp.swift; sourceTree = "<group>"; };
 		18ECD8D72DF9E82C003F7A5D /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -97,6 +99,7 @@
 			children = (
 				181DF48E2DFD7D0100D91560 /* Extensions */,
 				181DF49D2E0012C400D91560 /* Network */,
+				18E19DE42E09DC53004D6824 /* PhotoPicker */,
 			);
 			path = Utilities;
 			sourceTree = "<group>";
@@ -133,6 +136,14 @@
 				18E19D7E2E043120004D6824 /* NavigationShellView.swift */,
 			);
 			path = NavigationView;
+			sourceTree = "<group>";
+		};
+		18E19DE42E09DC53004D6824 /* PhotoPicker */ = {
+			isa = PBXGroup;
+			children = (
+				18E19DE52E09DC87004D6824 /* PhotoPicker.swift */,
+			);
+			path = PhotoPicker;
 			sourceTree = "<group>";
 		};
 		18ECD8C72DF9E829003F7A5D = {
@@ -276,6 +287,7 @@
 				181DF49F2E0012FA00D91560 /* HttpClient.swift in Sources */,
 				18ECD8E82DFA235A003F7A5D /* NoConnectionView.swift in Sources */,
 				181DF4992DFF1CCD00D91560 /* UserCardView.swift in Sources */,
+				18E19DE62E09DC87004D6824 /* PhotoPicker.swift in Sources */,
 				18ECD8E42DF9F1A6003F7A5D /* LaunchView.swift in Sources */,
 				18ECD8D42DF9E829003F7A5D /* ABZUsersApp.swift in Sources */,
 				18E19D832E05DA00004D6824 /* SignupViewModel.swift in Sources */,
