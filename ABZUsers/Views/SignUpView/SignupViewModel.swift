@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import KeychainSwift
 
 class SignupViewModel: ObservableObject {
     @Published var name = ""
@@ -22,6 +23,7 @@ class SignupViewModel: ObservableObject {
     @Published var positionError: String = ""
     @Published var photoUrlError: String = ""
     
+    @Published var isLoading = true
     
     // MARK: - Public Methods
     
@@ -34,6 +36,11 @@ class SignupViewModel: ObservableObject {
         print("Email: \(email)")
         print("Phone: \(phone)")
         print("Selected Position: \(position.self.rawValue)")
+        
+        Task {
+            try await registerUser()
+        }
+        
         
         // Clear form after submission
         //        clearForm()
@@ -56,10 +63,10 @@ class SignupViewModel: ObservableObject {
             nameError = "Required field"
             return false
         } else if name.count < 2 {
-            nameError = "First name must be at least 2 characters"
+            nameError = "Name must be at least 2 characters"
             return false
         } else if name.count > 60 {
-            nameError = "First name must be not more than 60 characters"
+            nameError = "Name must be not more than 60 characters"
             return false
         } else {
             nameError = ""
@@ -98,6 +105,26 @@ class SignupViewModel: ObservableObject {
         } else {
             phoneError = ""
             return true
+        }
+    }
+    
+    private func registerUser() async throws {
+        
+        let keychain = KeychainSwift()
+        let token = keychain.get("api_token")
+        
+        guard let url = URL(string: "https://frontend-test-assignment-api.abz.agency/api/v1/token") else {
+            throw HttpError.badURL
+        }
+        
+//        token = try await HttpClient.shared.fetch(url: url)
+        
+        DispatchQueue.main.async { [self] in
+            if let token {
+
+                
+                isLoading = false
+            }
         }
     }
     

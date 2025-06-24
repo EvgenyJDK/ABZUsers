@@ -17,10 +17,6 @@ struct UsersView: View {
     
     var body: some View {
         VStack {
-//            VStack {
-//                HeaderView(title: "Working with GET request")
-//            }
-            
             Group {
                 if viewModel.isLoading {
                     ProgressView()

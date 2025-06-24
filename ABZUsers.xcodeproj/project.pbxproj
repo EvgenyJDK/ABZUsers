@@ -19,6 +19,7 @@
 		18E19D812E05D661004D6824 /* ToolbarButtonView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18E19D802E05D661004D6824 /* ToolbarButtonView.swift */; };
 		18E19D832E05DA00004D6824 /* SignupViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18E19D822E05DA00004D6824 /* SignupViewModel.swift */; };
 		18E19DE62E09DC87004D6824 /* PhotoPicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18E19DE52E09DC87004D6824 /* PhotoPicker.swift */; };
+		18E19DE92E09F8E5004D6824 /* KeychainSwift in Frameworks */ = {isa = PBXBuildFile; productRef = 18E19DE82E09F8E5004D6824 /* KeychainSwift */; };
 		18ECD8D42DF9E829003F7A5D /* ABZUsersApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18ECD8D32DF9E829003F7A5D /* ABZUsersApp.swift */; };
 		18ECD8D82DF9E82C003F7A5D /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 18ECD8D72DF9E82C003F7A5D /* Assets.xcassets */; };
 		18ECD8DB2DF9E82C003F7A5D /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 18ECD8DA2DF9E82C003F7A5D /* Preview Assets.xcassets */; };
@@ -54,6 +55,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				18E19DE92E09F8E5004D6824 /* KeychainSwift in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -229,6 +231,9 @@
 			dependencies = (
 			);
 			name = ABZUsers;
+			packageProductDependencies = (
+				18E19DE82E09F8E5004D6824 /* KeychainSwift */,
+			);
 			productName = ABZUsers;
 			productReference = 18ECD8D02DF9E829003F7A5D /* ABZUsers.app */;
 			productType = "com.apple.product-type.application";
@@ -257,6 +262,9 @@
 				Base,
 			);
 			mainGroup = 18ECD8C72DF9E829003F7A5D;
+			packageReferences = (
+				18E19DE72E09F8E5004D6824 /* XCRemoteSwiftPackageReference "keychain-swift" */,
+			);
 			productRefGroup = 18ECD8D12DF9E829003F7A5D /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
@@ -504,6 +512,25 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		18E19DE72E09F8E5004D6824 /* XCRemoteSwiftPackageReference "keychain-swift" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/evgenyneu/keychain-swift";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 24.0.0;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		18E19DE82E09F8E5004D6824 /* KeychainSwift */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 18E19DE72E09F8E5004D6824 /* XCRemoteSwiftPackageReference "keychain-swift" */;
+			productName = KeychainSwift;
+		};
+/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = 18ECD8C82DF9E829003F7A5D /* Project object */;
 }

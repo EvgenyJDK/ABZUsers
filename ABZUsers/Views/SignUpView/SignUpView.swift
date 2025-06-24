@@ -12,10 +12,10 @@ struct SignUpView: View {
     
     @State private var showPhotoPicker = false
     @State private var showActionSheet = false
-//    @State private var selectedImage: UIImage? = nil
-//    @State private var imageData: Data? = nil
-//    @State private var showAlert = false
-//    @State private var alertMessage = ""
+    @State private var selectedImage: UIImage? = nil
+    @State private var imageData: Data? = nil
+    @State private var showAlert = false
+    @State private var alertMessage = ""
     @State private var pickerSourceType: UIImagePickerController.SourceType = .photoLibrary
     
     init() {
@@ -174,6 +174,14 @@ struct SignUpView: View {
                         ])
                     }
                 }
+                .sheet(isPresented: $showPhotoPicker) {
+                    PhotoPicker(sourceType: pickerSourceType) { image in
+                        processImage(image)
+                    }
+                }
+                .alert(isPresented: $showAlert) {
+                    Alert(title: Text("Error"), message: Text(alertMessage), dismissButton: .default(Text("OK")))
+                }
                 
                 .overlay(
                     RoundedRectangle(cornerRadius: 8)
@@ -212,6 +220,38 @@ struct SignUpView: View {
             //        .padding(.top, 30)
             .hideNavigationBar()
         }
+    }
+    
+    // Minimum size of photo 70x70px. The photo format must be jpeg/jpg type. The photo size must not be greater than 5 Mb.
+    func processImage(_ image: UIImage) {
+        // Ensure minimum size 70x70
+        let minSize: CGFloat = 70
+        var resizedImage = image
+        if image.size.width < minSize || image.size.height < minSize {
+            let scale = max(minSize / image.size.width, minSize / image.size.height)
+            let newSize = CGSize(width: image.size.width * scale, height: image.size.height * scale)
+            UIGraphicsBeginImageContextWithOptions(newSize, false, 1.0)
+            image.draw(in: CGRect(origin: .zero, size: newSize))
+            if let newImage = UIGraphicsGetImageFromCurrentImageContext() {
+                resizedImage = newImage
+            }
+            UIGraphicsEndImageContext()
+        }
+        // Convert to JPEG
+        guard let jpegData = resizedImage.jpegData(compressionQuality: 0.9) else {
+            alertMessage = "Failed to convert image to JPEG."
+            showAlert = true
+            return
+        }
+        // Check size <= 5MB
+        if jpegData.count > 5 * 1024 * 1024 {
+            alertMessage = "Image is larger than 5MB after processing."
+            showAlert = true
+            return
+        }
+        selectedImage = resizedImage
+        imageData = jpegData
+        // Ready to upload: imageData
     }
 }
 

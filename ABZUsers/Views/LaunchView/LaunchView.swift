@@ -9,6 +9,11 @@ import SwiftUI
 
 struct LaunchView: View {
     @StateObject var launchViewModel = LaunchViewModel()
+    
+    init() {
+        _launchViewModel = StateObject(wrappedValue: LaunchViewModel())
+    }
+    
     var body: some View {
         NavigationView {
             VStack {
