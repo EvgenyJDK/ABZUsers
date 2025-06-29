@@ -47,31 +47,23 @@ struct SignUpFailedView: View {
                         .frame(width: 200.0, height: 200.0, alignment: .center)
                         .scaledToFit()
                         .clipped()
+                    
                     Text(message)
                         .font(.title)
-                        .minimumScaleFactor(0.5)
+//                        .minimumScaleFactor(0.5)
                         .multilineTextAlignment(.leading)
-                        .frame(width: 276.0, height: 28.0, alignment: .topLeading)
+                        .frame(width: 276.0, height: 28.0, alignment: .center)
+//                        .lineLimit(3)
                         .padding(.top, 20.0)
-                    Button(action: {
+                    
+                    Button {
                         dismiss()
-                    }, label: {
-                        HStack(spacing: 0) {
-                            Text("Try again")
-                                .fontWeight(.semibold)
-//                                .padding(.horizontal, 30.0)
-//                                .padding(.vertical, 11.0)
-                                .minimumScaleFactor(0.5)
-                                .multilineTextAlignment(.center)
-                                .frame(width: 140.0, height: 48.0, alignment: .center)
-                                .foregroundColor(.black)
-                                .padding(.top, 0)
-                        }
-                    })
-                    .frame(width: 140, height: 48, alignment: .center)
-                    .background(RoundedRectangle(cornerRadius: /*@START_MENU_TOKEN@*/25.0/*@END_MENU_TOKEN@*/).foregroundColor(.yellow))
+                    } label: {
+                        ButtonView(title: "Try again")
+                    }
                     .padding(.top, 20)
                 }
+                
                 Spacer()
             }
         }

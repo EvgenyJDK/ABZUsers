@@ -40,6 +40,8 @@ class SignupViewModel: ObservableObject {
          return positions?.positionsList.first?.name ?? ""
     }
     
+    @Published var response: ApiResponse? = nil
+    
     init() {
         Task {
             try await fetchPositions()
@@ -73,10 +75,6 @@ class SignupViewModel: ObservableObject {
                 
                 selectedPosition = positions.positionsList.first
                 isLoading = false
-//                DispatchQueue.main.asyncAfter(deadline: .now() + 2) {
-                    navigate = true
-//                }
-                 // Triggers the navigation
             }
         }
     }
@@ -91,7 +89,6 @@ class SignupViewModel: ObservableObject {
         print("Name: \(name)")
         print("Email: \(email)")
         print("Phone: \(phone)")
-//        print("Selected Position: \(position.self.rawValue)")
         print("Selected Position: \(positionEntity.name)")
         
         Task {
@@ -252,6 +249,10 @@ class SignupViewModel: ObservableObject {
             // Decode response
             if let responsePost = try? JSONDecoder().decode(ApiResponse.self, from: data) {
                 print("Response received:", responsePost)
+                DispatchQueue.main.async {
+                    self.response = responsePost
+                    self.navigate = true
+                }
             } else {
                 print("Failed to decode response")
             }
@@ -260,9 +261,9 @@ class SignupViewModel: ObservableObject {
         }
     }
 
-    
 //    user photo should be jpg/jpeg image, with resolution at least 70x70px and size must not exceed 5MB.
 }
+
 
 struct Positions: Codable {
     

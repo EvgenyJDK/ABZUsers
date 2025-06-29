@@ -162,7 +162,7 @@ struct SignUpView: View {
                     .fontWeight(.semibold)
                     .foregroundColor(.cyan) // deprecated
                     .actionSheet(isPresented: $showActionSheet) {
-                        ActionSheet(title: Text("Choose Photo"), buttons: [
+                        ActionSheet(title: Text("Choose how you want to add photo"), buttons: [
                             .default(Text("Camera")) {
                                 pickerSourceType = .camera
                                 showPhotoPicker = true
@@ -191,40 +191,32 @@ struct SignUpView: View {
                 
                 
                 // Signup Button
-                
                 VStack(spacing: 12) {
-                    Button(action: {
+                    Button {
                         signupViewModel.submitForm()
-                    }) {
-                        HStack {
-                            //                        Image(systemName: "paperplane.fill")
-                            Text("Sign up")
-                                .fontWeight(.semibold)
-                                .foregroundColor(.black)
-                        }
-                        .foregroundColor(.white)
-                        .frame(maxWidth: .infinity)
-                        .frame(height: 50)
-                        //                    .background(signupViewModel.isFormValid ? Color.blue : Color.gray)
-                        .background(Color.yellow)
-                        .cornerRadius(24)
+                    } label: {
+                        ButtonView(title: "Sign up")
                     }
-                    //                .disabled(!signupViewModel.isFormValid)
-                    .padding(.horizontal, 20)
-                    .padding(.bottom, 30)
-                    .frame(width: 140, height: 48)
                 }
                 .padding(.horizontal, 20)
                 .padding(.top, 30)
-                
             }
-            //        .padding(.top, 30)
+            
             .hideNavigationBar()
         }
         
         // Use the ViewModel's state to control presentation
                 .sheet(isPresented: $signupViewModel.navigate) {
-                    SignUpSuccessView()
+                    if let response = signupViewModel.response {
+                        if response.success {
+                            SignUpSuccessView(message: response.message)
+                        } else {
+                            SignUpFailedView(message: response.message)
+                        }
+                    } else {
+                        SignUpFailedView(message: "message.description")
+                    }
+
                 }
 //        NavigationLink(
 //            destination: LaunchView(),
