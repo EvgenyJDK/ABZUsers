@@ -12,9 +12,12 @@ class SignupViewModel: ObservableObject {
     @Published var name = ""
     @Published var email = ""
     @Published var phone = ""
-    @Published var position = Position.front
+//    @Published var position = Position.front
+//    @Published var positionEntity = positions?.positionsList.first
+//    @Published var positionName = positions.positionsList.first?.name
     @Published var photoUrl = ""
     @Published var isFormValid: Bool = false
+    @Published var image: Data?
     
     // Validation states for highlighting
     @Published var nameError: String = ""
@@ -24,6 +27,41 @@ class SignupViewModel: ObservableObject {
     @Published var photoUrlError: String = ""
     
     @Published var isLoading = true
+    
+    var positions: Positions?
+    
+    @Published var selectedPosition: Position?
+    
+     var positionEntity: Position {
+         return positions?.positionsList.first ?? Position()
+    }
+     var positionName: String {
+         return positions?.positionsList.first?.name ?? ""
+    }
+    
+    init() {
+        Task {
+            try await fetchPositions()
+        }
+    }
+    
+    func fetchPositions() async throws {
+        guard let url = URL(string: "https://frontend-test-assignment-api.abz.agency/api/v1/positions") else {
+            throw HttpError.badURL
+        }
+        
+        positions = try await HttpClient.shared.fetch(url: url)
+        
+        
+        DispatchQueue.main.async { [self] in
+            if let positions {
+                dump(positions)
+                
+                selectedPosition = positions.positionsList.first
+                isLoading = false
+            }
+        }
+    }
     
     // MARK: - Public Methods
     
@@ -35,23 +73,31 @@ class SignupViewModel: ObservableObject {
         print("Name: \(name)")
         print("Email: \(email)")
         print("Phone: \(phone)")
-        print("Selected Position: \(position.self.rawValue)")
+//        print("Selected Position: \(position.self.rawValue)")
+        print("Selected Position: \(positionEntity.name)")
         
         Task {
-            try await registerUser()
+//            try await registerUser()
         }
         
+        
+        Task {
+            try await sendPostRequestAsync()
+        }
         
         // Clear form after submission
         //        clearForm()
     }
     
     func validateAllFields() {
+//        guard let _ = validateName(name), validateEmail(email), validatePhone(phone) else {
         _ = validateName(name)
         _ = validateEmail(email)
         _ = validatePhone(phone)
 //        _ = validatePhone(photoUrl)
         //        _ = validateOption(selectedOption)
+//                if validateName(name) && validateEmail(email) &&
+                    isFormValid = validateName(name) && validateEmail(email) && validatePhone(phone)
     }
     
     
@@ -128,14 +174,122 @@ class SignupViewModel: ObservableObject {
         }
     }
     
+//    struct PostData: Codable {
+//        let title: String
+//        let body: String
+//        let userId: Int
+//    }
+    
+    
+//    var id: Int
+//    var name: String
+//    var email: String
+//    var phone: String
+//    var position: String
+//    var photo: String
+    
+    private func sendPostRequestAsync() async throws {
+        
+//        let keychain = KeychainSwift()
+//        let token = keychain.get("api_token") ?? ""
+        
+//        guard let url = URL(string: "https://frontend-test-assignment-api.abz.agency/api/v1/users/\(token)") else {
+//            print("Invalid URL")
+//            return
+//        }
+        
+        guard let url = URL(string: "https://frontend-test-assignment-api.abz.agency/api/v1/users") else {
+            print("Invalid URL")
+            return
+        }
+
+//        let postData = PostData(title: "Hello (async)", body: "This is the body (async)", userId: 1)
+//        let postData = try User(from: <#T##any Decoder#>)
+
+        let postData = User1(from: self)
+        guard let jsonData = try? JSONEncoder().encode(postData) else {
+            print("Failed to encode data")
+            return
+        }
+
+        var request = URLRequest(url: url)
+        request.httpMethod = "POST"
+        request.setValue("application/json", forHTTPHeaderField: "Content-Type")
+        request.httpBody = jsonData
+
+        
+        let keychain = KeychainSwift()
+        let token = keychain.get("api_token") ?? ""
+        request.setValue("\(token)", forHTTPHeaderField: "Authorization")
+        
+        
+        do {
+            let (data, response) = try await URLSession.shared.data(for: request)
+
+            // Optional: Check HTTP status
+            if let httpResponse = response as? HTTPURLResponse {
+                print("Status code:", httpResponse.statusCode)
+            }
+
+            // Decode response
+            if let responsePost = try? JSONDecoder().decode(ApiResponse.self, from: data) {
+                print("Response received:", responsePost)
+            } else {
+                print("Failed to decode response")
+            }
+        } catch {
+            print("Request failed:", error)
+        }
+    }
+
+    
 //    user photo should be jpg/jpeg image, with resolution at least 70x70px and size must not exceed 5MB.
 }
 
-enum Position: String, CaseIterable, Identifiable {
-    case front = "Frontend Developer"
-    case back = "Backend Developer"
-    case designer = "Designer"
-    case qa = "QA"
+struct Positions: Codable {
     
-    var id: String { self.rawValue }  // Conform to Identifiable
+    let positionsList: [Position]
+    
+    private enum CodingKeys: String, CodingKey {
+        case positions = "positions"
+    }
+    
+    init(from decoder: Decoder) throws {
+        let values = try decoder.container(keyedBy: CodingKeys.self)
+        positionsList = try values.decode([Position].self, forKey: .positions)
+    }
+    
+    func encode(to encoder: Encoder) throws {
+        var container = encoder.container(keyedBy: CodingKeys.self)
+        try container.encode(positionsList, forKey: .positions)
+    }
+}
+
+
+struct Position: Codable, Identifiable, Equatable {
+    var id: Int
+    var name: String
+    
+    private enum CodingKeys: String, CodingKey {
+        case id = "id"
+        case name = "name"
+    }
+    
+    init(from decoder: Decoder) throws {
+        let values = try decoder.container(keyedBy: CodingKeys.self)
+        id = try values.decode(Int.self, forKey: .id)
+        name = try values.decode(String.self, forKey: .name)
+    }
+    
+    init()  {
+//        let values = try decoder.container(keyedBy: CodingKeys.self)
+        id = Int.max
+        name = "None"
+    }
+    
+    func encode(to encoder: Encoder) throws {
+        var container = encoder.container(keyedBy: CodingKeys.self)
+        try container.encode(id, forKey: .id)
+        try container.encode(name, forKey: .name)
+    }
 }

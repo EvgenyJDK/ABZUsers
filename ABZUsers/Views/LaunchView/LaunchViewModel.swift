@@ -32,6 +32,7 @@ class LaunchViewModel: ObservableObject {
             if let token {
 
                 let keychain = KeychainSwift()
+                keychain.delete("api_token")
                 keychain.set(token.value, forKey: "api_token")
                 
                 isLoading = false

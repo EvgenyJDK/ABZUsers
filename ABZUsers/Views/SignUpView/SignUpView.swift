@@ -19,8 +19,9 @@ struct SignUpView: View {
     @State private var pickerSourceType: UIImagePickerController.SourceType = .photoLibrary
     
     init() {
-        print("===SignUpView====")
+        _signupViewModel = StateObject(wrappedValue: SignupViewModel())
     }
+    
     
     var body: some View {
         
@@ -102,8 +103,9 @@ struct SignUpView: View {
                     }
                     
                     // Radio Button Selector
+                    
                     VStack(alignment: .leading, spacing: 8) {
-                        
+/*
                         VStack(alignment: .leading, spacing: 12) {
                             ForEach(Position.allCases, id: \.self) { position in
                                 HStack {
@@ -118,6 +120,34 @@ struct SignUpView: View {
                                                 .font(.title2)
                                             
                                             Text(position.rawValue)
+                                                .foregroundColor(.primary)
+                                                .font(.body)
+                                            
+                                            Spacer()
+                                        }
+                                    }
+                                    .buttonStyle(PlainButtonStyle())
+                                }
+                            }
+                        }
+*/
+//                        VStack(alignment: .leading, spacing: 8) {
+//                            
+                        VStack(alignment: .leading, spacing: 12) {
+                            ForEach(signupViewModel.positions?.positionsList ?? []) { position in
+                                
+                                HStack {
+                                    Button(action: {
+                                        signupViewModel.selectedPosition = position
+                                    }) {
+                                        HStack(spacing: 12) {
+                                            Image(signupViewModel.selectedPosition == position ? "radioSelected" : "radioUnselected")
+                                                .resizable()
+                                                .frame(width: 14, height: 14)
+                                                .aspectRatio(contentMode: .fill)
+                                                .foregroundColor(signupViewModel.selectedPosition == position ? .blue : .gray)
+                                                .font(.title2)
+                                            Text(position.name)
                                                 .foregroundColor(.primary)
                                                 .font(.body)
                                             
@@ -252,6 +282,7 @@ struct SignUpView: View {
         selectedImage = resizedImage
         imageData = jpegData
         // Ready to upload: imageData
+        signupViewModel.image = imageData
     }
 }
 
