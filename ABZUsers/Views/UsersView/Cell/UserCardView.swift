@@ -13,31 +13,44 @@ struct UserCardView: View {
     let position: String
     let email: String
     let phone: String
+    let imageUrl: String
     
     var body: some View {
         HStack(alignment: .top, spacing: 16) {
-            Image("photo")
-                .resizable()
-                .frame(width: 50, height: 50, alignment: .leading)
-                .scaledToFit()
-                .clipShape(/*@START_MENU_TOKEN@*/Circle()/*@END_MENU_TOKEN@*/)
-
-                VStack(alignment: .leading, spacing: 0) {
-                    Text(name)
-                        .fontWeight(.regular)
-                        .font(/*@START_MENU_TOKEN@*/.title/*@END_MENU_TOKEN@*/)
-                    Text(position)
-                    Text(email)
-                    Text(phone)
+            
+            AsyncImage(url: URL(string: imageUrl)) { phase in
+                switch phase {
+                case .empty:
+                    ProgressView()
+                case .success(let image):
+                    image
+                        .resizable()
+                        .scaledToFit()
+                case .failure:
+                    Image(systemName: "photo")
+                @unknown default:
+                    EmptyView()
                 }
-                .padding(.trailing, 16)
-        } 
+            }
+            .frame(width: 50, height: 50)
+            .clipShape(/*@START_MENU_TOKEN@*/Circle()/*@END_MENU_TOKEN@*/)
+            
+            VStack(alignment: .leading, spacing: 0) {
+                Text(name)
+                    .fontWeight(.regular)
+                    .font(/*@START_MENU_TOKEN@*/.title/*@END_MENU_TOKEN@*/)
+                Text(position)
+                Text(email)
+                Text(phone)
+            }
+            .padding(.trailing, 16)
+        }
         .padding([.top, .bottom, .leading], 16)
         .frame(maxWidth: /*@START_MENU_TOKEN@*/.infinity/*@END_MENU_TOKEN@*/, alignment: .leading)
-//        .background(.yellow)
+        //        .background(.yellow)
     }
 }
-//
+
 //#Preview {
 //    UserCardView()
 //}

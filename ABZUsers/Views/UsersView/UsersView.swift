@@ -45,7 +45,7 @@ struct UsersView: View {
 //            }
 //        }
         return ForEach(viewModel.users?.usersList ?? []) {
-            UserCardView(name: $0.name, position: $0.position, email: $0.email, phone: $0.phone)
+            UserCardView(name: $0.name, position: $0.position, email: $0.email, phone: $0.phone, imageUrl: $0.photo)
                 .onAppear {
 //                    if $0 == viewModel.users?.usersList.last{
                         loadMoreData()

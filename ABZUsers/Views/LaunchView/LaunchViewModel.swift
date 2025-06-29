@@ -17,11 +17,11 @@ class LaunchViewModel: ObservableObject {
     
     init() {
         Task {
-            try await getToken()
+            try await getTokenAsync()
         }
     }
     
-    func getToken() async throws {
+    private func getToken() async throws {
         guard let url = URL(string: "https://frontend-test-assignment-api.abz.agency/api/v1/token") else {
             throw HttpError.badURL
         }
@@ -39,6 +39,46 @@ class LaunchViewModel: ObservableObject {
             }
         }
     }
+    
+    private func getTokenAsync() async throws {
+        
+        guard let url = URL(string: "https://frontend-test-assignment-api.abz.agency/api/v1/token") else {
+            print("Invalid URL")
+            return
+        }
+
+        var request = URLRequest(url: url)
+        request.httpMethod = "POST"
+        request.setValue("application/json", forHTTPHeaderField: "Content-Type")
+        
+        
+        do {
+            let (data, response) = try await URLSession.shared.data(for: request)
+
+            // Optional: Check HTTP status
+            if let httpResponse = response as? HTTPURLResponse {
+                print("Status token code:", httpResponse.statusCode)
+            }
+
+            // Decode response
+            if let responsePost = try? JSONDecoder().decode(ApiResponse.self, from: data) {
+                print("Response received:", responsePost)
+            } else {
+                print("Failed to decode response")
+            }
+            
+            if let token = try? JSONDecoder().decode(Token.self, from: data) {
+                print("==\(token.value)==")
+                let keychain = KeychainSwift()
+                //                keychain.delete("api_token")
+                keychain.set(token.value, forKey: "api_token")
+            }
+        } catch {
+            print("Request failed:", error)
+        }
+    }
+
+//    user photo should be jpg/jpeg image, with resolution at least 70x70px and size must not exceed 5MB.
 }
 
 struct Token: Codable/*, Identifiable*/ {

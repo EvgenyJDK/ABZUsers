@@ -26,20 +26,20 @@ struct LaunchView: View {
                 }
                 .frame(width: UIScreen.main.bounds.width, height: UIScreen.main.bounds.height, alignment: .center)
                 .background(.yellow)
-                Group {
-                    NavigationLink(destination: UsersView(),
-                                   tag: "UsersView",
-                                   selection: $launchViewModel.nextScreen,
-                                   label: {
-                        EmptyView()
-                    })
-                }
+//                Group {
+//                    NavigationLink(destination: UsersView(),
+//                                   tag: "UsersView",
+//                                   selection: $launchViewModel.nextScreen,
+//                                   label: {
+//                        EmptyView()
+//                    })
+//                }
             }
             .frame(width: UIScreen.main.bounds.width, height: UIScreen.main.bounds.height)
         }
         .hideNavigationBar()
         .onAppear{
-            launchViewModel.nextScreen = "UsersView"
+//            launchViewModel.nextScreen = "UsersView"
         }
     }
 }

@@ -234,7 +234,9 @@ class SignupViewModel: ObservableObject {
 
         
         let keychain = KeychainSwift()
-        let token = keychain.get("api_token") ?? ""
+//        let token = keychain.get("api_token") ?? ""
+//        print("--token--\(token)---")
+        let token = "eyJpdiI6IktTNVwvN1hSTVBVTlVSZEcybjZmdEp3PT0iLCJ2YWx1ZSI6IkxiZXNMRmg2aHBqektGQ1ZEdCtFNEVSdmN2T1JDZW41VjBBRStiUnJFdElZTHRJeVVzdlwvM1VaZElPd3B4UWM1S3JmY3E0Y3M5bTF6RTZrVEpaRHk4QT09IiwibWFjIjoiM2JkNWU2ZTZiY2FmZGU3NGIwZDE5NDVlMjM5OGE5ODY1OWM5NWU3ZGI2MzhhMThmMmVjMjZhY2YxY2NlNjljZCJ9"
         request.setValue("\(token)", forHTTPHeaderField: "Authorization")
         
         

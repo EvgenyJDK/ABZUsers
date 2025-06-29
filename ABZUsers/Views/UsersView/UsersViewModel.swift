@@ -65,9 +65,9 @@ struct User: Codable, Identifiable {
     var email: String
     var phone: String
     var position: String
-    var positionId: Int?
-    var photo: String?
-    var image: Data?
+//    var positionId: Int?
+    var photo: String
+//    var image: Data?
     
     private enum CodingKeys: String, CodingKey {
         case id = "id"
@@ -93,9 +93,9 @@ struct User: Codable, Identifiable {
         email = model.email
         phone = model.phone
         position = model.positionEntity.name
-        image = model.image
-        positionId = 1
-//        photo = model.p
+//        image = model.image
+//        positionId = 1
+        photo = model.photoUrl
     }
 
     func encode(to encoder: Encoder) throws {
@@ -142,9 +142,8 @@ struct User1: Codable {
         name = model.name
         email = model.email
         phone = model.phone
-//        position = model.position.rawValue
         image = model.image
-        positionId = 1
+        positionId = model.selectedPosition?.id
 //        photo = model.p
     }
 
