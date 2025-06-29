@@ -39,10 +39,10 @@ struct NoConnectionView: View {
                 .background(RoundedRectangle(cornerRadius: /*@START_MENU_TOKEN@*/25.0/*@END_MENU_TOKEN@*/).foregroundColor(.yellow))
                 .padding(.top, 21)
             }
-            .frame(width: UIScreen.main.bounds.width, height: UIScreen.main.bounds.height, alignment: .center)
+//            .frame(width: UIScreen.main.bounds.width, height: UIScreen.main.bounds.height, alignment: .center)
             
         }
-        .frame(width: UIScreen.main.bounds.width, height: UIScreen.main.bounds.height)
+//        .frame(width: UIScreen.main.bounds.width, height: UIScreen.main.bounds.height)
 //        .hideNavigationBar()
     }
 }

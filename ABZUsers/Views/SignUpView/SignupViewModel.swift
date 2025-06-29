@@ -27,6 +27,7 @@ class SignupViewModel: ObservableObject {
     @Published var photoUrlError: String = ""
     
     @Published var isLoading = true
+    @Published var navigate = false
     
     var positions: Positions?
     
@@ -43,6 +44,19 @@ class SignupViewModel: ObservableObject {
         Task {
             try await fetchPositions()
         }
+        
+//        try? await Task { fetchPositions() }
+        
+        
+//        isLoading = true
+//
+//                // Simulated async API call
+//                try? await Task.sleep(nanoseconds: 2_000_000_000) // 2 seconds
+//
+//                // After task completes
+//                isLoading = false
+//                navigate = true
+        
     }
     
     func fetchPositions() async throws {
@@ -52,13 +66,17 @@ class SignupViewModel: ObservableObject {
         
         positions = try await HttpClient.shared.fetch(url: url)
         
-        
+//        DispatchQueue.main.asyncAfter(deadline: .now() + 2) {
         DispatchQueue.main.async { [self] in
             if let positions {
                 dump(positions)
                 
                 selectedPosition = positions.positionsList.first
                 isLoading = false
+//                DispatchQueue.main.asyncAfter(deadline: .now() + 2) {
+                    navigate = true
+//                }
+                 // Triggers the navigation
             }
         }
     }
