@@ -15,6 +15,7 @@ class HttpClient {
     private init() {}
 
     static let shared = HttpClient()
+    private let baseURL = "https://frontend-test-assignment-api.abz.agency/api/v1/"
     
     func fetch(url: URL) async throws -> Users {
         

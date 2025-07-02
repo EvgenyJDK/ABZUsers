@@ -8,17 +8,12 @@
 import SwiftUI
 
 struct UserCardView: View {
-    
-    let name: String
-    let position: String
-    let email: String
-    let phone: String
-    let imageUrl: String
-    
+    let user: User
+
     var body: some View {
         HStack(alignment: .top, spacing: 16) {
             
-            AsyncImage(url: URL(string: imageUrl)) { phase in
+            AsyncImage(url: URL(string: user.photo)) { phase in
                 switch phase {
                 case .empty:
                     ProgressView()
@@ -36,12 +31,12 @@ struct UserCardView: View {
             .clipShape(/*@START_MENU_TOKEN@*/Circle()/*@END_MENU_TOKEN@*/)
             
             VStack(alignment: .leading, spacing: 0) {
-                Text(name)
+                Text(user.name)
                     .fontWeight(.regular)
                     .font(/*@START_MENU_TOKEN@*/.title/*@END_MENU_TOKEN@*/)
-                Text(position)
-                Text(email)
-                Text(phone)
+                Text(user.position)
+                Text(user.email)
+                Text(user.phone)
             }
             .padding(.trailing, 16)
         }

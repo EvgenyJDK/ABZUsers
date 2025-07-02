@@ -18,53 +18,31 @@ struct UsersView: View {
     var body: some View {
         VStack {
             Group {
-                if viewModel.isLoading {
-                    ProgressView()
-                } else {
-                    VStack {
-                        HeaderView(title: "Working with GET request")
-                    }
-                    ScrollView {
-                        cards
+
+                VStack {
+                    HeaderView(title: "Working with GET request")
+                }
+                
+                ScrollView {
+                    LazyVStack {
+                        ForEach(viewModel.items) { item in
+                            UserCardView(user: item)
+                        }
+                        
+                        if viewModel.hasMorePages {
+                            ProgressView()
+                                .padding()
+                                .onAppear {
+                                    Task {
+                                        try await viewModel.fetchUsers()
+                                    }
+                                }
+                        }
                     }
                 }
             }
             
         }.hideNavigationBar()
-    }
-
-    var cards: some View {
-//        List {
-//            ForEach(viewModel.users?.usersList ?? []) {
-//                UserCardView(name: $0.name, position: $0.position, email: $0.email, phone: $0.phone)
-////                    .onAppear{
-//////                        if $0 == viewModel.users?.usersList.last{
-////                            loadMoreData()
-//////                        }
-////                    }
-//            }
-//        }
-        return ForEach(viewModel.users?.usersList ?? []) {
-            UserCardView(name: $0.name, position: $0.position, email: $0.email, phone: $0.phone, imageUrl: $0.photo)
-                .onAppear {
-//                    if $0 == viewModel.users?.usersList.last{
-                        loadMoreData()
-//                    }
-                }
-        }
-    }
-    
-    private func loadMoreData() {
-        print("===loadMoreData====")
-//        guard !isLoading else { return }
-//        isLoading = true
-//        
-//        // Simulate a network delay
-//        DispatchQueue.main.asyncAfter(deadline: .now() + 1.5) {
-//            let moreItems = items.count+1...items.count+20
-//            items.append(contentsOf: moreItems)
-//            isLoading = false
-//        }
     }
 }
 

@@ -9,10 +9,15 @@ import Foundation
 import SwiftUI
 
 class UsersViewModel: ObservableObject {
-    @Published var nextScreen: String? = nil
-    @Published var isLoading = true
+//    @Published var nextScreen: String? = nil
+    @Published var isLoading = false
+    @Published var hasMorePages = true
     
     var users: Users?
+    @Published var items: [User] = []
+    
+    private var currentPage = 1
+    private let pageSize = 6
     
     init() {
         Task {
@@ -21,18 +26,31 @@ class UsersViewModel: ObservableObject {
     }
     
     func fetchUsers() async throws {
-        guard let url = URL(string: "https://frontend-test-assignment-api.abz.agency/api/v1/users?page=1&count=6") else {
+        guard !isLoading && hasMorePages else { return }
+        isLoading = true
+        defer { isLoading = false }
+
+        let baseURL = "https://frontend-test-assignment-api.abz.agency/api/v1/"
+        
+        guard let url = URL(string: "\(baseURL)users?page=\(currentPage)&count=\(pageSize)") else {
             throw HttpError.badURL
         }
+
+        try? await Task.sleep(nanoseconds: 500_000_000) // Simulate a network delay to show ProgressView
         
         users = try await HttpClient.shared.fetch(url: url)
-        
         
         DispatchQueue.main.async { [self] in
             if let users {
                 dump(users)
                 
-                isLoading = false
+                if currentPage == 1 {
+                    items = users.usersList
+                } else {
+                    items.append(contentsOf: users.usersList)
+                }
+                hasMorePages = users.usersList.count == pageSize
+                if hasMorePages { currentPage += 1 }
                 
             }
         }
