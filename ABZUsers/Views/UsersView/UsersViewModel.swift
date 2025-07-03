@@ -21,8 +21,15 @@ class UsersViewModel: ObservableObject {
     
     init() {
         Task {
-            try await fetchUsers()
+            try await loadInitialItems()
         }
+    }
+    
+    func loadInitialItems() async throws {
+        currentPage = 1
+        hasMorePages = true
+        items = []
+        try await fetchUsers()
     }
     
     func fetchUsers() async throws {

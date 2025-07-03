@@ -41,6 +41,11 @@ struct UsersView: View {
                     }
                 }
             }
+            .refreshable {
+                Task {
+                    try await viewModel.loadInitialItems()
+                }
+            }
             
         }.hideNavigationBar()
     }

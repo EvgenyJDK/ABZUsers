@@ -17,7 +17,7 @@ class LaunchViewModel: ObservableObject {
     
     init() {
         Task {
-            try await getTokenAsync()
+            try await getToken()
         }
     }
     
@@ -40,7 +40,7 @@ class LaunchViewModel: ObservableObject {
         }
     }
     
-    private func getTokenAsync() async throws {
+    private func getToken_post() async throws {
         
         guard let url = URL(string: "https://frontend-test-assignment-api.abz.agency/api/v1/token") else {
             print("Invalid URL")
@@ -61,18 +61,15 @@ class LaunchViewModel: ObservableObject {
             }
 
             // Decode response
-            if let responsePost = try? JSONDecoder().decode(ApiResponse.self, from: data) {
-                print("Response received:", responsePost)
+            if let token = try? JSONDecoder().decode(Token.self, from: data) {
+                print("Response received:", token)
+                let keychain = KeychainSwift()
+//                keychain.delete("api_token")
+                keychain.set(token.value, forKey: "api_token")
             } else {
                 print("Failed to decode response")
             }
-            
-            if let token = try? JSONDecoder().decode(Token.self, from: data) {
-                print("==\(token.value)==")
-                let keychain = KeychainSwift()
-                //                keychain.delete("api_token")
-                keychain.set(token.value, forKey: "api_token")
-            }
+
         } catch {
             print("Request failed:", error)
         }
@@ -83,19 +80,23 @@ class LaunchViewModel: ObservableObject {
 
 struct Token: Codable/*, Identifiable*/ {
 //    var id: ObjectIdentifier
+//    var success: Bool
     var value: String
     
     private enum CodingKeys: String, CodingKey {
+//        case success = "success"
         case token = "token"
     }
 
     init(from decoder: Decoder) throws {
         let values = try decoder.container(keyedBy: CodingKeys.self)
+//        value = try values.decode(Bool.self, forKey: .success)
         value = try values.decode(String.self, forKey: .token)
     }
 
     func encode(to encoder: Encoder) throws {
         var container = encoder.container(keyedBy: CodingKeys.self)
+//        try container.encode(value, forKey: .success)
         try container.encode(value, forKey: .token)
     }
 }
