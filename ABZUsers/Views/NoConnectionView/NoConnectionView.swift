@@ -8,6 +8,9 @@
 import SwiftUI
 
 struct NoConnectionView: View {
+    @StateObject private var networkMonitor = NetworkMonitor()
+    @State private var showModal = false
+    
     var body: some View {
         VStack {
             VStack {
@@ -41,6 +44,11 @@ struct NoConnectionView: View {
             }
 //            .frame(width: UIScreen.main.bounds.width, height: UIScreen.main.bounds.height, alignment: .center)
             
+        }
+        .sheet(isPresented: $showModal) {
+            if networkMonitor.isConnected {
+                UsersView()
+            }
         }
 //        .frame(width: UIScreen.main.bounds.width, height: UIScreen.main.bounds.height)
 //        .hideNavigationBar()

@@ -19,6 +19,8 @@ class UsersViewModel: ObservableObject {
     private var currentPage = 1
     private let pageSize = 6
     
+    @Published var navigate = false
+    
     func loadInitialItems() async throws {
         currentPage = 1
         hasMorePages = true

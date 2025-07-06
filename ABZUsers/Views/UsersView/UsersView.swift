@@ -10,48 +10,64 @@ import SwiftUI
 struct UsersView: View {
     
     @StateObject private var viewModel = UsersViewModel()
+    @StateObject private var networkMonitor = NetworkMonitor()
     @State private var showEmptyView = false
     
+    
     var body: some View {
-        VStack {
-            Group {
+        VStack() {
+            VStack {
                 
-                VStack {
-                    HeaderView(title: "Working with GET request")
-                }
-                
-                ScrollView {
-                    if showEmptyView {
-                        emptyView
-                    } else {
-                        LazyVStack {
-                            ForEach(viewModel.items) { item in
-                                UserCardView(user: item)
-                            }
-                            
-                            if viewModel.hasMorePages {
-                                ProgressView()
-                                    .padding()
-                                    .onAppear {
-                                        Task {
-                                            let _ = try await viewModel.fetchUsers { bool in
-                                                showEmptyView = bool
-                                            }
-                                        }
+                if !networkMonitor.isConnected {
+                    NoConnectionView()
+                    
+                } else {
+                    Group {
+                        
+                        VStack {
+                            HeaderView(title: "Working with GET request")
+                        }
+                        
+                        ScrollView {
+                            if showEmptyView {
+                                emptyView
+                                //                            UsersEmptyView()
+                            } else {
+                                LazyVStack {
+                                    ForEach(viewModel.items) { item in
+                                        UserCardView(user: item)
                                     }
+                                    
+                                    if viewModel.hasMorePages {
+                                        ProgressView()
+                                            .padding()
+                                            .onAppear {
+                                                Task {
+                                                    let _ = try await viewModel.fetchUsers { bool in
+                                                        showEmptyView = bool
+                                                    }
+                                                }
+                                            }
+                                    }
+                                }
                             }
                         }
                     }
+                    .refreshable {
+                        Task {
+                            try await viewModel.loadInitialItems()
+                        }
+                    }
                 }
-            }
-            .refreshable {
-                Task {
-                    try await viewModel.loadInitialItems()
+            }.hideNavigationBar()
+        }
+                .sheet(isPresented: $viewModel.navigate) {
+                    if !networkMonitor.isConnected {
+                        NoConnectionView()
+                    }
                 }
-            }
-            
-        }.hideNavigationBar()
     }
+
     
     var emptyView: some View {
         
@@ -73,7 +89,7 @@ struct UsersView: View {
                 Spacer()
             }
         }
-        .frame(maxWidth: .infinity)  
+        .frame(maxWidth: .infinity)
     }
 }
 
