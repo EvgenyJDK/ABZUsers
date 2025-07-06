@@ -42,12 +42,13 @@ struct NavigationShellView: View {
                 }
                 .toolbar {
                     ToolbarItemGroup(placement: .bottomBar) {
-                        
+//                        Color.gray.frame(width: .infinity, height: 600)
                         Button(action: {
                             selectedScreen = .users
                         }, label: {
                             ToolbarButtonView(image: "users", text: "Users", location: .left, isActive: selectedScreen == .users)
                         }).buttonStyle(DynamicButtonStyle(isActive: selectedScreen == .users))
+                        
                         
                         Spacer()
                         

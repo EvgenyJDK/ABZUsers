@@ -19,20 +19,14 @@ class UsersViewModel: ObservableObject {
     private var currentPage = 1
     private let pageSize = 6
     
-    init() {
-        Task {
-            try await loadInitialItems()
-        }
-    }
-    
     func loadInitialItems() async throws {
         currentPage = 1
         hasMorePages = true
         items = []
-        try await fetchUsers()
+        try await fetchUsers { _ in }
     }
-    
-    func fetchUsers() async throws {
+
+    func fetchUsers(completion: @escaping (Bool) -> Void) async throws {
         guard !isLoading && hasMorePages else { return }
         isLoading = true
         defer { isLoading = false }
@@ -58,7 +52,7 @@ class UsersViewModel: ObservableObject {
                 }
                 hasMorePages = users.usersList.count == pageSize
                 if hasMorePages { currentPage += 1 }
-                
+                completion(items.isEmpty)
             }
         }
     }
