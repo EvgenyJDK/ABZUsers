@@ -31,7 +31,7 @@ class UsersViewModel: ObservableObject {
     func fetchUsers(completion: @escaping (Bool) -> Void) async throws {
         guard !isLoading && hasMorePages else { return }
         isLoading = true
-        defer { isLoading = false }
+        defer { isLoading = false } // ensure isLoading is set to false after the async operation.
 
         let baseURL = "https://frontend-test-assignment-api.abz.agency/api/v1/"
         

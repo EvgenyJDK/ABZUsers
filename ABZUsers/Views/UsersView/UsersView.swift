@@ -9,65 +9,73 @@ import SwiftUI
 
 struct UsersView: View {
     
+    @EnvironmentObject var networkMonitor: NetworkMonitor
     @StateObject private var viewModel = UsersViewModel()
-    @StateObject private var networkMonitor = NetworkMonitor()
+    
     @State private var showEmptyView = false
-    
-    
+    @State private var showNoConnectionView = false
+    @State private var fetchTrigger = UUID()
+
     var body: some View {
         VStack() {
             VStack {
-                
-                if !networkMonitor.isConnected {
-                    NoConnectionView()
+                Group {
                     
-                } else {
-                    Group {
-                        
-                        VStack {
-                            HeaderView(title: "Working with GET request")
-                        }
-                        
-                        ScrollView {
-                            if showEmptyView {
-                                emptyView
-                                //                            UsersEmptyView()
-                            } else {
-                                LazyVStack {
-                                    ForEach(viewModel.items) { item in
-                                        UserCardView(user: item)
-                                    }
-                                    
-                                    if viewModel.hasMorePages {
-                                        ProgressView()
-                                            .padding()
-                                            .onAppear {
-                                                Task {
-                                                    let _ = try await viewModel.fetchUsers { bool in
-                                                        showEmptyView = bool
-                                                    }
+                    VStack {
+                        HeaderView(title: "Working with GET request")
+                    }
+                    
+                    ScrollView {
+                        if showEmptyView {
+                            emptyView
+                            
+                        } else {
+                            LazyVStack {
+                                ForEach(viewModel.items) { item in
+                                    UserCardView(user: item)
+                                }
+                                
+                                if viewModel.hasMorePages {
+                                    ProgressView()
+                                        .padding()
+                                        .background(Color.red)
+                                        .onAppear {
+                                            Task {
+                                                let _ = try await viewModel.fetchUsers { bool in
+                                                    showEmptyView = bool
                                                 }
                                             }
-                                    }
+                                        }
                                 }
                             }
                         }
                     }
-                    .refreshable {
-                        Task {
-                            try await viewModel.loadInitialItems()
-                        }
+                }
+                .refreshable {
+                    Task {
+                        try await viewModel.loadInitialItems()
                     }
                 }
             }.hideNavigationBar()
         }
-                .sheet(isPresented: $viewModel.navigate) {
-                    if !networkMonitor.isConnected {
-                        NoConnectionView()
-                    }
-                }
+        
+        .fullScreenCover(isPresented: $showNoConnectionView) {
+            NoConnectionView(networkMonitor: networkMonitor)
+        }
+        .onChange(of: networkMonitor.isConnected) { newValue in
+            showNoConnectionView = !newValue
+            if newValue {
+                fetchTrigger = UUID() // Restart fetch when reconnected
+            }
+        }
+        .onAppear {
+            self.showNoConnectionView = !networkMonitor.isConnected
+        }
+        .task(id: fetchTrigger) {
+            guard networkMonitor.isConnected else { return }
+            let _ = try? await viewModel.loadInitialItems()
+        }
     }
-
     
     var emptyView: some View {
         
@@ -92,7 +100,6 @@ struct UsersView: View {
         .frame(maxWidth: .infinity)
     }
 }
-
 
 
 #Preview {

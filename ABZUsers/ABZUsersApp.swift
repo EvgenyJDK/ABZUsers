@@ -9,11 +9,13 @@ import SwiftUI
 
 @main
 struct ABZUsersApp: App {
+    @StateObject var networkMonitor = NetworkMonitor()
     
     var body: some Scene {
         WindowGroup {
 //            LaunchView()
             NavigationShellView()
+                .environmentObject(networkMonitor)
         }
     }
 }

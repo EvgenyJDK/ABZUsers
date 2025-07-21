@@ -14,7 +14,10 @@ enum Screen {
 struct NavigationShellView: View {
     @State private var showLaunchView = true
     @State private var selectedScreen: Screen = .users
+//    @StateObject private var networkMonitor = NetworkMonitor()
+    @EnvironmentObject var networkMonitor: NetworkMonitor
     
+    @State private var showOverlay = false
     
     var body: some View {
         NavigationView {
@@ -27,7 +30,11 @@ struct NavigationShellView: View {
                             }
                         }
                     }
-            } else {
+//            } else if !networkMonitor.isConnected {
+//                NoConnectionView()
+                
+                
+            } else { /*networkMonitor.isConnected {*/
                 
                 
                 Group {
@@ -35,7 +42,12 @@ struct NavigationShellView: View {
                         //                case .launch:
                         //                    LaunchView()
                     case .users:
-                        UsersView()
+//                        if !networkMonitor.isConnected {
+//                            NoConnectionView(networkMonitor: networkMonitor)
+//                        } else {
+                            UsersView()
+//                        }
+                        
                     case .signUp:
                         SignUpView()
                     }
