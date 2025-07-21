@@ -51,11 +51,11 @@ struct UsersView: View {
                         }
                     }
                 }
-                .refreshable {
-                    Task {
-                        try await viewModel.loadInitialItems()
-                    }
-                }
+//                .refreshable {
+//                    Task {
+//                        try await viewModel.loadInitialItems()
+//                    }
+//                }
             }.hideNavigationBar()
         }
         

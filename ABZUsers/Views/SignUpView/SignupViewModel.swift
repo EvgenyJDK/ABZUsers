@@ -24,7 +24,7 @@ class SignupViewModel: ObservableObject {
     @Published var emailError: String = ""
     @Published var phoneError: String = ""
     @Published var positionError: String = ""
-    @Published var photoUrlError: String = ""
+    @Published var photoError: String = ""
     
     @Published var isLoading = true
     @Published var navigate = false
@@ -109,10 +109,10 @@ class SignupViewModel: ObservableObject {
         _ = validateName(name)
         _ = validateEmail(email)
         _ = validatePhone(phone)
-//        _ = validatePhone(photoUrl)
+        _ = validatePhoto(image)
         //        _ = validateOption(selectedOption)
 //                if validateName(name) && validateEmail(email) &&
-                    isFormValid = validateName(name) && validateEmail(email) && validatePhone(phone)
+        isFormValid = validateName(name) && validateEmail(email) && validatePhone(phone) && validatePhoto(image)
     }
     
     
@@ -166,6 +166,16 @@ class SignupViewModel: ObservableObject {
         } else {
             phoneError = ""
             return true
+        }
+    }
+    
+    private func validatePhoto(_ photo: Data?) -> Bool {
+        if let _ = photo {
+            photoError = ""
+            return true
+        } else {
+            photoError = "Photo is required"
+            return false
         }
     }
     

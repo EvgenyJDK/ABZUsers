@@ -16,6 +16,7 @@ struct NavigationShellView: View {
     @State private var selectedScreen: Screen = .users
 //    @StateObject private var networkMonitor = NetworkMonitor()
     @EnvironmentObject var networkMonitor: NetworkMonitor
+    @State private var showNoConnectionView = false
     
     @State private var showOverlay = false
     
@@ -72,6 +73,13 @@ struct NavigationShellView: View {
                 }
                 .navigationTitle(selectedScreen == .users ? "First Screen" : "Second Screen")
             }
+        }
+        .fullScreenCover(isPresented: $showNoConnectionView) {
+            NoConnectionView(networkMonitor: networkMonitor)
+        }
+        .onChange(of: networkMonitor.isConnected) { newValue in
+            showNoConnectionView = !newValue
+            
         }
     }
 }
