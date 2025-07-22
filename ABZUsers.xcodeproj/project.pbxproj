@@ -13,6 +13,7 @@
 		181DF49B2DFF4EE900D91560 /* UsersViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 181DF49A2DFF4EE900D91560 /* UsersViewModel.swift */; };
 		181DF49F2E0012FA00D91560 /* HttpClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 181DF49E2E0012FA00D91560 /* HttpClient.swift */; };
 		18305B0B2E1AC39500A2E8FE /* NetworkMonitor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18305B0A2E1AC39400A2E8FE /* NetworkMonitor.swift */; };
+		187CC5EB2E2F0D8900EFE76A /* App-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 187CC5EA2E2F0D8900EFE76A /* App-Info.plist */; };
 		18AE292D2E116BED00E3EDA8 /* ApiResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18AE292C2E116BED00E3EDA8 /* ApiResponse.swift */; };
 		18AE292F2E11832400E3EDA8 /* SignUpSuccessView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18AE292E2E11832400E3EDA8 /* SignUpSuccessView.swift */; };
 		18AE29312E119B4900E3EDA8 /* SignUpFailedView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18AE29302E119B4900E3EDA8 /* SignUpFailedView.swift */; };
@@ -40,6 +41,7 @@
 		181DF49A2DFF4EE900D91560 /* UsersViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UsersViewModel.swift; sourceTree = "<group>"; };
 		181DF49E2E0012FA00D91560 /* HttpClient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HttpClient.swift; sourceTree = "<group>"; };
 		18305B0A2E1AC39400A2E8FE /* NetworkMonitor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkMonitor.swift; sourceTree = "<group>"; };
+		187CC5EA2E2F0D8900EFE76A /* App-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "App-Info.plist"; sourceTree = "<group>"; };
 		18AE292C2E116BED00E3EDA8 /* ApiResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ApiResponse.swift; sourceTree = "<group>"; };
 		18AE292E2E11832400E3EDA8 /* SignUpSuccessView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpSuccessView.swift; sourceTree = "<group>"; };
 		18AE29302E119B4900E3EDA8 /* SignUpFailedView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpFailedView.swift; sourceTree = "<group>"; };
@@ -185,6 +187,7 @@
 				181DF49C2E0012BB00D91560 /* Utilities */,
 				18ECD8E12DF9F18B003F7A5D /* Views */,
 				18ECD8D32DF9E829003F7A5D /* ABZUsersApp.swift */,
+				187CC5EA2E2F0D8900EFE76A /* App-Info.plist */,
 				18ECD8D72DF9E82C003F7A5D /* Assets.xcassets */,
 				18ECD8D92DF9E82C003F7A5D /* Preview Content */,
 			);
@@ -296,6 +299,7 @@
 			files = (
 				18ECD8DB2DF9E82C003F7A5D /* Preview Assets.xcassets in Resources */,
 				18ECD8D82DF9E82C003F7A5D /* Assets.xcassets in Resources */,
+				187CC5EB2E2F0D8900EFE76A /* App-Info.plist in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -463,6 +467,7 @@
 				DEVELOPMENT_TEAM = 7ZTJE9M8X9;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = "ABZUsers/App-Info.plist";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
@@ -493,6 +498,7 @@
 				DEVELOPMENT_TEAM = 7ZTJE9M8X9;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = "ABZUsers/App-Info.plist";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
